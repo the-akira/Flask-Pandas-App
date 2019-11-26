@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center"><a href="{{ url_for('index') }}">Flask Pandas App</a></h1>
+			
+<form 
+method=POST  
+enctype=multipart/form-data 
+action="{{ url_for('dataupload') }}"
+	>
+	<div class="form-group">
+		<div class="custom-file">
+			<input oninput="filesize(this);" type="file" name="csv_data" class="custom-file-input" >
+			<label class="custom-file-label" for="csv_data">Selecione um Arquivo csv</label>
+			<input class="botao" type="submit" value="Enviar dados"> 
+		</div>
+	</div>
+</form>	
+
+<br>
+
+<h2>Detalhes Sobre o DataFrame</h2>
+
+<div class="painel-dados">
+	<p>Nome do arquivo: <strong>{{ filename }}</strong></p>
+
+	<p>Tamanho do DataFrame: <strong>{{ df_size }}</strong></p>
+
+	<p>Formato do DataFrame: <strong>{{ df_shape }}</strong></p>
+
+	<div>
+		<p>Informações</p>
+		{{ df_info }}
+	</div>
+	<br>
+
+	<div>
+		<p>Tipos de Dados</p>
+		<ul>
+			{% for dt in df_dtypes %}
+			<li>
+				<strong>{{ dt }}</strong>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<div>
+		<p>Colunas do Dataframe</p>
+		<ul>
+			{% for col in df_columns %}
+			<li>
+				<strong>{{ col }}</strong>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+<div>
+	<h2>Descrição do Dataframe</h2>
+	<p>{{ df_describe.to_html(table_id="enhaced-table") | safe }}</p>
+</div>
+
+<div>
+	<h2>Conjunto de Dados</h2>
+	<button class="botao" onclick="displayDataset()">Mostrar Dados</button>
+
+	<div id="dados">
+		{{ df.to_html(table_id="enhaced-table2") | safe }}
+	</div>
+</div>
+
+{% endblock content %}
+

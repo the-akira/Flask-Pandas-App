@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center"><a href="{{ url_for('index') }}">Flask Pandas App</a></h1>
+			
+<form 
+method=POST  
+enctype=multipart/form-data 
+action="{{ url_for('dataupload') }}"
+	>
+	<div class="form-group">
+		<div class="custom-file">
+			<input oninput="filesize(this);" type="file" name="csv_data" class="custom-file-input" >
+			<label class="custom-file-label" for="csv_data">Selecione um Arquivo csv</label>
+			<input class="botao" type="submit" value="Enviar dados"> 
+		</div>
+	</div>
+	<a class="social mr-2" href="https://github.com/the-akira" target="_blank"><i class="fab fa-github fa-3x"></i></a>
+	<a class="social" href="https://twitter.com/akirascientist" target="_blank"><i class="fab fa-twitter fa-3x"></i></a>
+</form>	
+
+
+{% endblock content %}
