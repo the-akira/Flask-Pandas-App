@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, redirect
 from flask_uploads import UploadSet, configure_uploads, IMAGES, DATA, ALL
 from werkzeug import secure_filename
 import pandas as pd 
@@ -11,7 +11,17 @@ app = Flask(__name__)
 # Configurações para o Upload de Arquivos
 files = UploadSet('files', ALL)
 app.config['UPLOADED_FILES_DEST'] = 'static/dados'
+app.config['ALLOWED_EXTENSIONS'] = ['CSV']
 configure_uploads(app,files)
+
+def allowed_extension(filename):
+	if not '.' in filename:
+		return False
+	ext = filename.rsplit('.',1)[1]
+	if ext.upper() in app.config['ALLOWED_EXTENSIONS']:
+		return True 
+	else:
+		return False
 
 # Rota Índice
 @app.route('/')
@@ -22,8 +32,14 @@ def index():
 @app.route('/dataupload',methods=['GET','POST'])
 def dataupload():
 	if request.method == 'POST' and 'csv_data' in request.files:
-		try: 
-			file = request.files['csv_data']
+		file = request.files['csv_data']
+		if file.filename == "":
+			print('file must have a filename')
+			return redirect(request.url)
+		if not allowed_extension(file.filename):
+			print('Extension not allowed')
+			return redirect(request.url)	
+		else:		
 			filename = secure_filename(file.filename)
 
 			file.save(os.path.join('static/dados',filename))
@@ -50,9 +66,6 @@ def dataupload():
 				df=df,
 				df_describe=df_describe
 			)
-
-		except IsADirectoryError:
-			return render_template('index.html')
 	else:
 		return render_template('index.html')
 
