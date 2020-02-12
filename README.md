@@ -15,7 +15,7 @@ Simple Scientfic Web Application to summarize your data:
 ### Clone the Repository
 
 ```
-https://github.com/the-akira/Flask-Pandas-App.git
+git clone https://github.com/the-akira/Flask-Pandas-App.git
 ```
 
 ### Inside the Main Directory
