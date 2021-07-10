@@ -1,96 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
 body {
-	background-color: #274c5c;
+    background-color: #274c5c;
 }
 
-.grafico{
-	margin-top: 30px;
+.grafico {
+    margin-top: 30px;
 }
 
-.social{
-	color: #274c5c;
+.social {
+    color: #274c5c;
 }
 
-.social:hover{
-	color: #274c5c;
-}
-
-#enhaced-table_wrapper{
-	background-color: white;
-	padding: 10px;
-	border: 1px solid black;
+#enhaced-table_wrapper {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
 }
 
 #enhaced-table2_wrapper {
-	background-color: white;
-	padding: 10px;
-	border: 1px solid black;
-	margin-bottom: 15px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 15px;
 }
 
-h1{
-	margin-top: 25px;
-	font-family: 'Black Ops One', cursive;
-	font-size: 3.1rem;
-	color: white;
+h1 {
+    margin-top: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.1rem;
+    color: white;
 }
 
-h2{
-	font-family: 'Black Ops One', cursive;
-	font-size: 3rem;
-	color: white;	
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    color: white;	
 }
 
 a {
-	color: white;
+    color: white;
 }
 
 p, li {
-	color: #274c5c;
-	list-style-type: none;
+    color: #274c5c;
+    list-style-type: none;
 }
 
-.painel-dados{
-	background-color: #8db5c7;
-	border: 2px solid gray;
-	padding: 20px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;	
+.painel-dados {
+    background-color: #8db5c7;
+    border: 3.5px solid #011659;
+    border-radius: 7px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;	
 }
 
-a:hover{
-	color: gray;
-	text-decoration: none;
+a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
-.custom-file-input{
-	margin-bottom: 12px;
+.custom-file-input {
+    margin-bottom: 12px;
 }
 
-.botao{
-	background-color: #274c5c;
-	color: white;
-	border: 2px solid white;
-	padding: 5px;
+.botao {
+    background-color: #274c5c;
+    color: white;
+    border: 2px solid white;
+    padding: 4px 10px 4px 10px;
 }
 
 button {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
-#dados{
-	display: none;
+#dados {
+    display: none;
 }
 
 form {
-	background-color: #8db5c7;
-	border: 2px solid gray;
-	width: 70%;
-	padding: 20px;
-	margin-top: 40px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+    background-color: #8db5c7;
+    border: 3.5px solid #011659;
+    border-radius: 7px;
+    width: 70%;
+    padding: 20px;
+    margin-top: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

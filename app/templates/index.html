@@ -8,17 +8,16 @@
 method=POST  
 enctype=multipart/form-data 
 action="{{ url_for('dataupload') }}"
-	>
-	<div class="form-group">
-		<div class="custom-file">
-			<input oninput="filesize(this);" type="file" name="csv_data" class="custom-file-input" >
-			<label class="custom-file-label" for="csv_data">Choose a csv file...</label>
-			<input class="botao" type="submit" value="Submit"> 
-		</div>
-	</div>
-	<a class="social mr-2" href="https://github.com/the-akira" target="_blank"><i class="fab fa-github fa-3x"></i></a>
-	<a class="social" href="https://twitter.com/akirascientist" target="_blank"><i class="fab fa-twitter fa-3x"></i></a>
+>
+    <div class="form-group">
+        <div class="custom-file">
+            <input oninput="filesize(this);" type="file" name="csv_data" class="custom-file-input" >
+            <label class="custom-file-label" for="csv_data">Choose a csv file...</label>
+            <input class="botao" type="submit" value="Submit"> 
+        </div>
+    </div>
+    <a class="social mr-2" href="https://github.com/the-akira" target="_blank"><i class="fab fa-github fa-3x"></i></a>
+    <a class="social" href="https://twitter.com/akirascientist" target="_blank"><i class="fab fa-twitter fa-3x"></i></a>
 </form>	
-
 
 {% endblock content %}
