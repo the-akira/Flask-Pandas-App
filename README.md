@@ -1,5 +1,7 @@
 # Flask-Pandas-App
 
+![img](https://raw.githubusercontent.com/the-akira/Flask-Pandas-App/master/Avatar.png)
+
 Simple Scientfic Web Application to summarize your data: 
 
 - Size
