@@ -1,6 +1,6 @@
 Click==7.0
 cycler==0.10.0
-Flask==1.1.1
+Flask==2.3.2
 Flask-Uploads==0.2.1
 gunicorn==20.0.3
 itsdangerous==1.1.0
