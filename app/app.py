@@ -12,6 +12,7 @@ app = Flask(__name__)
 files = UploadSet('files', ALL)
 app.config['UPLOADED_FILES_DEST'] = 'static/dados'
 app.config['ALLOWED_EXTENSIONS'] = ['CSV']
+app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024
 configure_uploads(app,files)
 
 def allowed_extension(filename):
@@ -29,43 +30,68 @@ def index():
     return render_template('index.html')
 
 # Rota para Processamento dos Dados
-@app.route('/dataupload',methods=['GET','POST'])
+@app.route('/dataupload', methods=['GET', 'POST'])
 def dataupload():
     if request.method == 'POST' and 'csv_data' in request.files:
         file = request.files['csv_data']
+
+        # Verificar se o arquivo tem um nome
         if file.filename == "":
-            print('file must have a filename')
-            return redirect(request.url)
+            print('File must have a filename')
+            return "O arquivo enviado não tem um nome. Por favor, envie um arquivo válido.", 400
+
+        # Verificar se o arquivo tem uma extensão permitida
         if not allowed_extension(file.filename):
             print('Extension not allowed')
-            return redirect(request.url)	
-        else:		
-            filename = secure_filename(file.filename)
+            return "A extensão do arquivo não é permitida. Por favor, envie um arquivo CSV.", 400
 
-            file.save(os.path.join('static/dados',filename))
-            fullfile = os.path.join('static/dados',filename)
+        # Verificar o tamanho do arquivo manualmente (em bytes)
+        max_size = 5 * 1024 * 1024  # Limite de 5 MB
+        file.seek(0, os.SEEK_END)  # Ir para o final do arquivo para obter o tamanho
+        file_size = file.tell()  # Tamanho em bytes
+        file.seek(0)  # Voltar ao início do arquivo para não corromper a leitura
 
-            df = pd.read_csv(os.path.join('static/dados',filename))
-            df_size = df.size
-            df_shape = df.shape 
-            df_dtypes = df.dtypes
-            info = io.StringIO()
-            df_info = str(df.info(buf=info, verbose=True, null_counts=True))
-            df_info = info.getvalue()
-            df_columns = list(df.columns)
-            df_describe = df.describe()
+        if file_size > max_size:
+            print(f"O arquivo é muito grande: {file_size} bytes")
+            return f"O arquivo enviado é muito grande ({file_size / (1024 * 1024):.2f} MB). O limite é de 5 MB.", 400
 
-            return render_template(
-                'details.html', 
-                filename=filename, 
-                df_size=df_size, 
-                df_shape=df_shape, 
-                df_dtypes=df_dtypes,
-                df_info=df_info,
-                df_columns=df_columns,
-                df=df,
-                df_describe=df_describe
-            )
+        # Salvar o arquivo se todas as validações passarem
+        filename = secure_filename(file.filename)
+        file.save(os.path.join('static/dados', filename))
+        filepath = os.path.join('static/dados', filename)
+
+        # Processar o arquivo normalmente
+        try:
+            max_rows = 5000
+            df = pd.read_csv(filepath, nrows=max_rows)
+            total_rows = sum(1 for _ in open(filepath)) - 1  # Total de linhas no CSV
+        except Exception as e:
+            print(f"Erro ao carregar o arquivo: {e}")
+            return "Erro ao carregar o arquivo. Por favor, verifique o formato do arquivo.", 400
+
+        # Retornar os dados processados
+        df_size = df.size
+        df_shape = df.shape
+        df_dtypes = df.dtypes
+        info = io.StringIO()
+        df_info = str(df.info(buf=info, verbose=True, null_counts=True))
+        df_info = info.getvalue()
+        df_columns = list(df.columns)
+        df_describe = df.describe()
+
+        return render_template(
+            'details.html',
+            filename=filename,
+            df_size=df_size,
+            df_shape=df_shape,
+            df_dtypes=df_dtypes,
+            df_info=df_info,
+            df_columns=df_columns,
+            df=df,
+            df_describe=df_describe,
+            total_rows=total_rows,
+            max_rows=max_rows,
+        )
     else:
         return render_template('index.html')
 

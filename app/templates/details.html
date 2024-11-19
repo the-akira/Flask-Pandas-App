@@ -12,7 +12,7 @@ action="{{ url_for('dataupload') }}"
     <div class="form-group">
         <div class="custom-file">
             <input oninput="filesize(this);" type="file" name="csv_data" class="custom-file-input" >
-            <label class="custom-file-label" for="csv_data">Choose a csv file...</label>
+            <label class="custom-file-label">Choose a csv file...</label>
             <input class="botao" type="submit" value="Submit"> 
         </div>
     </div>
@@ -28,12 +28,6 @@ action="{{ url_for('dataupload') }}"
     <p>Tamanho do DataFrame: <strong>{{ df_size }}</strong></p>
 
     <p>Formato do DataFrame: <strong>{{ df_shape }}</strong></p>
-
-    <div>
-        <p>Informações</p>
-        {{ df_info }}
-    </div>
-    <br>
 
     <div>
         <p>Tipos de Dados</p>
